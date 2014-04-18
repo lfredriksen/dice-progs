@@ -35,7 +35,7 @@ dicemode = 1
 message = "Enter Mode: "
 error = """ Valid inputs:
 "S", "s", "shadowrun", "shadowrun dice pool", are all valid for calculating shadowrun dice pools.
-Other valid inputs include: "2d6" or "4d6 2d20" or "d20"
+Other valid inputs include: "2d6" or "4d6 2d20" or "d20" or something 
 """
 while dicemode != '0':
 	
