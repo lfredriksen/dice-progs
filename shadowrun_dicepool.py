@@ -9,6 +9,10 @@ def shadowrun_pool(dicepool):
 	while count > 0:
 		roll = randint(1, 6)
 		#shadowrun rules use d6s, and a hit is a 5. 1s should be counted as well
+		if count == 1:
+			print roll 
+		else:
+			print roll, 
 		if roll >= 5:
 			hits += 1
 		elif roll == 1:
@@ -26,8 +30,21 @@ def shadowrun_pool(dicepool):
 			#you have hits.
 	return hits
 
-def dice_rolls(dicepool):
+def single_dice_type(n_dice, n_dice_type):
+	total = 0
+	for x in range(n_dice):
+		roll = randint(1, n_dice_type)
+		total += roll
+		print roll, 
+	print "Total:", total
+
+def dice_rolls(dicemode):
 	#this is for rolling any number of dice
+	modes = dicemode.split()
+	for x in modes:
+		print "Results for", x + ":",
+		rocknroll = x.split('d')
+		single_dice_type(int(rocknroll[0]), int(rocknroll[1]))
 
 pool = 1
 dicemode = 1
@@ -35,18 +52,27 @@ dicemode = 1
 message = "Enter Mode: "
 error = """ Valid inputs:
 "S", "s", "shadowrun", "shadowrun dice pool", are all valid for calculating shadowrun dice pools.
-Other valid inputs include: "2d6" or "4d6 2d20" or "d20" or something 
+Other valid inputs include: "2d6" or "4d6 2d20" or "d20" or something.
+Enter '0' if you'd like to exit your mode or this program.
 """
 while dicemode != '0':
 	
 	dicemode = raw_input(message)
-	if dicemode == 's' or 'S':
+	if dicemode == 's' or dicemode == 'S' or dicemode.find('hadow') > 0:
 		while pool != 0:	
 			pool = int(raw_input("Enter dicepool size: "))
-			print "result: ", shadowrun_pool(pool), " hits occured."
-	elif dicemode == '6':
+			if pool == 0:
+				break
+			print "result: ", 
+			hits = shadowrun_pool(pool)
+			print hits, "hits occured."
 		
+	elif dicemode.find('d') > 0:
+		#for ndm dice roll modes
+		dice_rolls(dicemode)
+					
 	else:
-		print "Enter valid input!", error
+		print "Invalid input. ", error
+		
 		
 
